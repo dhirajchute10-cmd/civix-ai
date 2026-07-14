@@ -263,3 +263,142 @@ export const deleteComplaint = async (req, res) => {
 
   }
 };
+
+// Admin - Get All Complaints
+export const getAllComplaints = async (req, res) => {
+  try {
+
+    const complaints = await Complaint.find()
+      .populate("citizen", "fullName email")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      complaints,
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+
+  }
+};
+
+// Admin - Update Complaint Status
+export const updateComplaintStatus = async (req, res) => {
+  try {
+
+    const { status } = req.body;
+
+    const complaint = await Complaint.findById(req.params.id)
+      .populate("citizen", "fullName email");
+
+    if (!complaint) {
+      return res.status(404).json({
+        success: false,
+        message: "Complaint not found",
+      });
+    }
+
+    complaint.status = status;
+
+    complaint.tracking.push({
+      status,
+      message: `Complaint status changed to ${status}`,
+    });
+
+    await complaint.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Complaint status updated successfully",
+      complaint,
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+
+  }
+};
+
+// Admin - Delete Complaint
+export const adminDeleteComplaint = async (req, res) => {
+  try {
+
+    const complaint = await Complaint.findById(req.params.id);
+
+    if (!complaint) {
+      return res.status(404).json({
+        success: false,
+        message: "Complaint not found",
+      });
+    }
+
+    await Complaint.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+      success: true,
+      message: "Complaint deleted successfully",
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+
+  }
+};
+
+// Admin Dashboard Statistics
+export const getAdminStats = async (req, res) => {
+  try {
+    const total = await Complaint.countDocuments();
+
+    const pending = await Complaint.countDocuments({
+      status: "Pending",
+    });
+
+    const inProgress = await Complaint.countDocuments({
+      status: "In Progress",
+    });
+
+    const resolved = await Complaint.countDocuments({
+      status: "Resolved",
+    });
+
+    res.status(200).json({
+      success: true,
+      stats: {
+        total,
+        pending,
+        inProgress,
+        resolved,
+      },
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+
+  }
+};

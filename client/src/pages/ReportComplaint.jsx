@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createComplaint } from "../services/complaintService";
 import { improveComplaint } from "../services/aiService";
+import { analyzeImage } from "../services/imageService";
 
 import "../css/ReportComplaint.css";
 
@@ -11,10 +12,12 @@ function ReportComplaint() {
   const [location, setLocation] = useState("");
   const [image, setImage] = useState(null);
 
+  const [preview, setPreview] = useState("");
   const [priority, setPriority] = useState("");
   const [department, setDepartment] = useState("");
 
   const [improving, setImproving] = useState(false);
+  const [loadingAI, setLoadingAI] = useState(false);
 
   const handleImprove = async () => {
     if (!description.trim()) {
@@ -51,6 +54,40 @@ function ReportComplaint() {
     }
   };
 
+  const handleAnalyzeImage = async () => {
+
+    if (!image) {
+      alert("Please select an image first.");
+      return;
+    }
+
+    try {
+
+      setLoadingAI(true);
+
+      const response = await analyzeImage(image);
+
+      console.log(response.data);
+
+      alert("Image uploaded successfully!");
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert(
+        error.response?.data?.message ||
+        "Image analysis failed."
+      );
+
+    } finally {
+
+      setLoadingAI(false);
+
+    }
+
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -63,6 +100,40 @@ function ReportComplaint() {
         image: image ? image.name : "",
       };
 
+      const handleAnalyzeImage = async () => {
+
+        if (!image) {
+          alert("Please select an image first.");
+          return;
+        }
+
+        try {
+
+          setLoadingAI(true);
+
+          const response = await analyzeImage(image);
+
+          console.log(response.data);
+
+          alert("Image uploaded successfully!");
+
+        } catch (error) {
+
+          console.log(error);
+
+          alert(
+            error.response?.data?.message ||
+            "Image analysis failed."
+          );
+
+        } finally {
+
+          setLoadingAI(false);
+
+        }
+
+      };
+
       const response = await createComplaint(complaintData);
 
       alert(response.data.message);
@@ -72,6 +143,7 @@ function ReportComplaint() {
       setCategory("");
       setLocation("");
       setImage(null);
+      setPreview("");
       setPriority("");
       setDepartment("");
 
@@ -191,8 +263,37 @@ function ReportComplaint() {
             <input
               type="file"
               accept="image/*"
-              onChange={(e) => setImage(e.target.files[0])}
+              onChange={(e) => {
+                const file = e.target.files[0];
+
+                setImage(file);
+
+                if (file) {
+                  setPreview(URL.createObjectURL(file));
+                }
+              }}
             />
+
+            {preview && (
+              <div className="preview-box">
+                <img
+                  src={preview}
+                  alt="Complaint Preview"
+                  className="preview-image"
+                />
+              </div>
+            )}
+
+            <button
+              type="button"
+              className="ai-btn"
+              onClick={handleAnalyzeImage}
+              disabled={!image || loadingAI}
+            >
+              {loadingAI
+                ? "🤖 Analyzing..."
+                : "🤖 Analyze Image"}
+            </button>
           </div>
 
           <button

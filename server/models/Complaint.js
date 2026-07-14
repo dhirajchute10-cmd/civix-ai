@@ -47,6 +47,23 @@ const complaintSchema = new mongoose.Schema(
       default: "Pending",
     },
 
+    tracking: [
+      {
+        status: {
+          type: String,
+        },
+
+        message: {
+          type: String,
+        },
+
+        updatedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+
     citizen: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

@@ -67,7 +67,7 @@ function ComplaintDetails() {
 
       alert(
         error.response?.data?.message ||
-          "Update Failed"
+        "Update Failed"
       );
     }
   };
@@ -91,7 +91,7 @@ function ComplaintDetails() {
 
       alert(
         error.response?.data?.message ||
-          "Delete Failed"
+        "Delete Failed"
       );
     }
   };
@@ -191,6 +191,40 @@ function ComplaintDetails() {
                 complaint.createdAt
               ).toLocaleString()}
             </p>
+
+            <hr style={{ margin: "20px 0" }} />
+
+            <h2>📍 Complaint Tracking</h2>
+
+            {complaint.tracking && complaint.tracking.length > 0 ? (
+
+              complaint.tracking.map((item, index) => (
+
+                <div
+                  key={index}
+                  style={{
+                    borderLeft: "4px solid #2563eb",
+                    paddingLeft: "15px",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <h4>{item.status}</h4>
+
+                  <p>{item.message}</p>
+
+                  <small>
+                    {new Date(item.updatedAt).toLocaleString()}
+                  </small>
+
+                </div>
+
+              ))
+
+            ) : (
+
+              <p>No tracking history available.</p>
+
+            )}
 
             {complaint.status === "Pending" && (
               <div

@@ -7,8 +7,12 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
+import AdminDashboard from "../pages/AdminDashboard";
 import ReportComplaint from "../pages/ReportComplaint";
 import ProtectedRoute from "./ProtectedRoute";
+import AdminComplaints from "../pages/AdminComplaints";
+import AdminProtectedRoute from "./AdminProtectedRoute";
+import AdminLogin from "../pages/AdminLogin";
 
 function AppRoutes() {
   return (
@@ -18,6 +22,8 @@ function AppRoutes() {
         <Route path="/" element={<Home />} />
 
         <Route path="/login" element={<Login />} />
+
+        <Route path="/admin-login" element={<AdminLogin />} />
 
         <Route path="/register" element={<Register />} />
 
@@ -62,6 +68,24 @@ function AppRoutes() {
             <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin"
+          element={
+            <AdminProtectedRoute>
+              <AdminDashboard />
+            </AdminProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/complaints"
+          element={
+            <AdminProtectedRoute>
+              <AdminComplaints />
+            </AdminProtectedRoute>
           }
         />
 

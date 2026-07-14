@@ -62,17 +62,17 @@ export const getRecentComplaints = async () => {
 
 export const updateComplaint = async (id, data) => {
 
-  const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-  return await axios.put(
-    `${API}/${id}`,
-    data,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+    return await axios.put(
+        `${API}/${id}`,
+        data,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
 
 };
 
@@ -86,4 +86,60 @@ export const deleteComplaint = async (id) => {
         },
     });
 
+};
+
+export const getAllComplaints = async () => {
+
+    const token = localStorage.getItem("token");
+
+    return await axios.get(
+        `${API}/admin/all`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+};
+
+export const updateComplaintStatus = async (id, status) => {
+
+    const token = localStorage.getItem("token");
+
+    return await axios.put(
+        `${API}/admin/status/${id}`,
+        { status },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+};
+
+export const adminDeleteComplaint = async (id) => {
+
+    const token = localStorage.getItem("token");
+
+    return await axios.delete(
+        `${API}/admin/delete/${id}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+};
+
+export const getAdminStats = async () => {
+  const token = localStorage.getItem("token");
+
+  return await axios.get(`${API}/admin/stats`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };

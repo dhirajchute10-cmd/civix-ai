@@ -25,6 +25,8 @@ function Login() {
         password,
       });
 
+      console.log(response.data);
+
       alert(response.data.message);
 
       // Save JWT Token
@@ -36,8 +38,15 @@ function Login() {
         JSON.stringify(response.data.user)
       );
 
-      // Redirect to Dashboard
-      navigate("/dashboard");
+      console.log("Full Response:", response.data);
+      console.log("User:", response.data.user);
+      console.log("Role:", response.data.user.role);
+
+      if (response.data.user.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/dashboard");
+      }
 
     } catch (error) {
       alert(

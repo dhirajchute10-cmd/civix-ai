@@ -9,3 +9,7 @@ export const loginUser = (data) => {
 export const registerUser = (data) => {
   return axios.post(`${API}/register`, data);
 };
+
+export const adminLogin = (data) => {
+  return axios.post("/api/auth/admin-login", data);
+};
