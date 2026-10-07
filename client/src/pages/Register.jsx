@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { registerUser } from "../services/authService";
-import "../css/Register.css";
+import "../css/register.css";
 
 function Register() {
   const navigate = useNavigate();
