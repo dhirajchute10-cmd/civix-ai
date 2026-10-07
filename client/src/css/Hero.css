@@ -1,92 +1,102 @@
-/* Hero Section */
-
-.hero {
-  min-height: 90vh;
-  background: linear-gradient(
-    135deg,
-    var(--secondary-color),
-    var(--primary-dark)
-  );
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: var(--white);
-  padding: 20px;
+.hero{
+    height:90vh;
+    background:linear-gradient(135deg,#2563eb,#1e40af);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
 }
 
-.hero-content {
-  max-width: 800px;
+.hero-overlay{
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:rgba(0,0,0,.15);
+    padding:20px;
 }
 
-.hero h1 {
-  font-size: 3.5rem;
-  margin-bottom: 20px;
+.hero-content{
+    max-width:900px;
+    margin:auto;
 }
 
-.hero p {
-  font-size: 1.3rem;
-  color: var(--text-light);
-  margin-bottom: 40px;
-  line-height: 1.6;
+.hero h1{
+    font-size:64px;
+    margin-bottom:20px;
+    font-weight:700;
 }
 
-.hero-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
+.hero p{
+    font-size:22px;
+    line-height:1.8;
+    margin-bottom:40px;
+    opacity:.95;
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
 }
 
 .primary-btn,
-.secondary-btn {
-  padding: 15px 30px;
-  font-size: 18px;
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: all 0.3s ease;
+.secondary-btn{
+    padding:15px 35px;
+    border-radius:10px;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:600;
+    transition:.3s;
 }
 
-.primary-btn {
-  background: var(--primary-color);
-  color: var(--white);
+.primary-btn{
+    background:white;
+    color:#2563eb;
 }
 
-.primary-btn:hover {
-  background: var(--primary-dark);
-  transform: translateY(-4px);
+.primary-btn:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(255,255,255,.25);
 }
 
-.secondary-btn {
-  background: var(--white);
-  color: var(--secondary-color);
+.secondary-btn{
+    border:2px solid white;
+    color:white;
 }
 
-.secondary-btn:hover {
-  background: var(--border);
-  transform: translateY(-4px);
+.secondary-btn:hover{
+    background:white;
+    color:#2563eb;
+    transform:translateY(-5px);
 }
 
-/* Responsive Design */
+@media(max-width:768px){
 
-@media (max-width: 768px) {
+.hero{
+    height:75vh;
+}
 
-  .hero h1 {
-    font-size: 2.3rem;
-  }
+.hero h1{
+    font-size:42px;
+}
 
-  .hero p {
-    font-size: 1rem;
-  }
+.hero p{
+    font-size:18px;
+}
 
-  .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
+.hero-buttons{
+    flex-direction:column;
+    align-items:center;
+}
 
-  .primary-btn,
-  .secondary-btn {
-    width: 220px;
-  }
+.primary-btn,
+.secondary-btn{
+    width:220px;
+    text-align:center;
+}
+
 }

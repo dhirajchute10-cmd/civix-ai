@@ -10,6 +10,7 @@ import complaintRoutes from "./routes/complaintRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import aiRoutes from "./routes/aiRoutes.js";
 import imageRoutes from "./routes/imageRoutes.js";
+import serviceRoutes from "./routes/serviceRoutes.js";
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use("/api/complaints", complaintRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/image", imageRoutes);
+app.use("/api/services", serviceRoutes);
 
 // Home Route
 app.get("/", (req, res) => {

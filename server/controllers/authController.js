@@ -22,7 +22,7 @@ export const register = async (req, res) => {
         success: false,
         message: "Invalid email"
       });
-    }
+    } 
 
     // Password length
     if (password.length < 6) {
@@ -88,6 +88,13 @@ export const login = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: "User not found"
+      });
+    }
+
+    if (user.role !== "citizen") {
+      return res.status(403).json({
+        success: false,
+        message: "Please use the Admin Portal to login as an administrator.",
       });
     }
 
@@ -201,6 +208,28 @@ export const adminLogin = async (req, res) => {
 
   } catch (error) {
     console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+// Admin - Get All Users
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({})
+      .select("-password")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      users,
+    });
+
+  } catch (error) {
+    console.error(error);
 
     res.status(500).json({
       success: false,

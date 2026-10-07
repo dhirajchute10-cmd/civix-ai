@@ -1,11 +1,13 @@
+
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { loginUser } from "../services/authService";
 import "../css/Login.css";
 
 function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,12 +29,10 @@ function Login() {
 
       console.log(response.data);
 
-      alert(response.data.message);
-
       // Save JWT Token
       localStorage.setItem("token", response.data.token);
 
-      // Save User Details (Optional but useful)
+      // Save User Details
       localStorage.setItem(
         "user",
         JSON.stringify(response.data.user)
@@ -42,12 +42,17 @@ function Login() {
       console.log("User:", response.data.user);
       console.log("Role:", response.data.user.role);
 
-      if (response.data.user.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/dashboard");
-      }
+      alert(response.data.message);
 
+      // Redirect based on user role
+      if (response.data.user.role === "admin") {
+        navigate("/admin", { replace: true });
+      } else {
+        // Return to the originally requested page
+        const redirectTo = location.state?.from || "/dashboard";
+
+        navigate(redirectTo, { replace: true });
+      }
     } catch (error) {
       alert(
         error.response?.data?.message || "Login Failed"

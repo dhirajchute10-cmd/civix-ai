@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAdminStats } from "../../services/complaintService";
+import "../../css/DashboardCards.css";
 
 function DashboardCards() {
   const [stats, setStats] = useState({
@@ -10,39 +11,37 @@ function DashboardCards() {
   });
 
   useEffect(() => {
-    fetchStats();
+    loadStats();
   }, []);
 
-  const fetchStats = async () => {
+  const loadStats = async () => {
     try {
-      const response = await getAdminStats();
-
-      setStats(response.data.stats);
-    } catch (error) {
-      console.log(error);
-      alert("Failed to load admin statistics.");
+      const res = await getAdminStats();
+      setStats(res.data.stats);
+    } catch (err) {
+      console.log(err);
     }
   };
 
   return (
     <div className="dashboard-cards">
 
-      <div className="card">
+      <div className="card total">
         <h3>Total Complaints</h3>
         <h1>{stats.total}</h1>
       </div>
 
-      <div className="card">
+      <div className="card pending">
         <h3>Pending</h3>
         <h1>{stats.pending}</h1>
       </div>
 
-      <div className="card">
+      <div className="card progress">
         <h3>In Progress</h3>
         <h1>{stats.inProgress}</h1>
       </div>
 
-      <div className="card">
+      <div className="card resolved">
         <h3>Resolved</h3>
         <h1>{stats.resolved}</h1>
       </div>

@@ -7,22 +7,18 @@ import RecentComplaints from "../components/RecentComplaints";
 import "../css/Dashboard.css";
 
 function Dashboard() {
-
   const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("user"));
 
   const logout = () => {
-
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
-    navigate("/login");
-
+    navigate("/");
   };
 
   return (
-
     <div className="dashboard">
 
       <div className="dashboard-header">
@@ -40,7 +36,7 @@ function Dashboard() {
           className="logout-btn"
           onClick={logout}
         >
-          Logout
+          🚪 Logout
         </button>
 
       </div>
@@ -52,9 +48,7 @@ function Dashboard() {
       <RecentComplaints />
 
     </div>
-
   );
-
 }
 
 export default Dashboard;

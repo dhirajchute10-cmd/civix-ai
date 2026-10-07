@@ -1,0 +1,55 @@
+.recent-complaints{
+    margin-top:35px;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.recent-complaints h2{
+    margin-bottom:20px;
+    color:#1e3a8a;
+}
+
+.recent-complaints table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.recent-complaints th{
+    background:#1e3a8a;
+    color:white;
+    padding:14px;
+}
+
+.recent-complaints td{
+    padding:14px;
+    text-align:center;
+    border-bottom:1px solid #eee;
+}
+
+.recent-complaints tr:hover{
+    background:#f8fafc;
+}
+
+
+.resolved{
+    background:#16a34a;
+    color:white;
+    padding:4px 10px;
+    border-radius:20px;
+}
+
+.pending{
+    background:#ef4444;
+    color:white;
+    padding:4px 10px;
+    border-radius:20px;
+}
+
+.progress{
+    background:#f59e0b;
+    color:white;
+    padding:4px 10px;
+    border-radius:20px;
+}

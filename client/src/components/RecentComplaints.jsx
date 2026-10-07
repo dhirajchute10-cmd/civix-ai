@@ -1,3 +1,4 @@
+import "../css/RecentComplaints.css";
 import { useEffect, useState } from "react";
 import { getRecentComplaints } from "../services/complaintService";
 
@@ -11,39 +12,63 @@ function RecentComplaints() {
   const fetchComplaints = async () => {
     try {
       const res = await getRecentComplaints();
+      console.log(res.data.complaints);
       setComplaints(res.data.complaints);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
   return (
-    <div className="recent-box">
-      <h2>Recent Complaints</h2>
+    <div className="recent-complaints">
 
-      {complaints.length === 0 ? (
-        <div className="empty">
-          No complaints submitted yet.
-        </div>
-      ) : (
-        complaints.map((complaint) => (
-          <div
-            key={complaint._id}
-            style={{
-              padding: "12px",
-              borderBottom: "1px solid #ddd",
-            }}
-          >
-            <strong>{complaint.title}</strong>
+      <h2>📋 Recent Complaints</h2>
 
-            <br />
+      <table>
 
-            <small>
-              {complaint.category} • {complaint.status}
-            </small>
-          </div>
-        ))
-      )}
+        <thead>
+          <tr>
+            <th>Citizen</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Priority</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          {complaints.map((complaint) => (
+
+            <tr key={complaint._id}>
+
+              <td>{complaint.citizen?.fullName}</td>
+
+              <td>{complaint.category}</td>
+
+              <td>
+                <span
+                  className={
+                    complaint.status === "Resolved"
+                      ? "resolved"
+                      : complaint.status === "Pending"
+                      ? "pending"
+                      : "progress"
+                  }
+                >
+                  {complaint.status}
+                </span>
+              </td>
+
+              <td>{complaint.priority || "N/A"}</td>
+
+            </tr>
+
+          ))}
+
+        </tbody>
+
+      </table>
+
     </div>
   );
 }

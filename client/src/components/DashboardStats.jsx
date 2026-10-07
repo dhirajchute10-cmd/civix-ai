@@ -25,24 +25,36 @@ function DashboardStats() {
   return (
     <div className="stats-grid">
 
-      <div className="stat-card">
-        <h2>{stats.total}</h2>
-        <p>Total Complaints</p>
+      <div className="stat-card total-card">
+        <div className="stat-icon">📄</div>
+        <div>
+          <h2>{stats.total}</h2>
+          <p>Total Complaints</p>
+        </div>
       </div>
 
-      <div className="stat-card">
-        <h2>{stats.pending}</h2>
-        <p>Pending</p>
+      <div className="stat-card pending-card">
+        <div className="stat-icon">🕐</div>
+        <div>
+          <h2>{stats.pending}</h2>
+          <p>Pending</p>
+        </div>
       </div>
 
-      <div className="stat-card">
-        <h2>{stats.inProgress}</h2>
-        <p>In Progress</p>
+      <div className="stat-card progress-card">
+        <div className="stat-icon">🔄</div>
+        <div>
+          <h2>{stats.inProgress}</h2>
+          <p>In Progress</p>
+        </div>
       </div>
 
-      <div className="stat-card">
-        <h2>{stats.resolved}</h2>
-        <p>Resolved</p>
+      <div className="stat-card resolved-card">
+        <div className="stat-icon">✓</div>
+        <div>
+          <h2>{stats.resolved}</h2>
+          <p>Resolved</p>
+        </div>
       </div>
 
     </div>

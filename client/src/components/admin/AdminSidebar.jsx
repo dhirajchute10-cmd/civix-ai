@@ -1,22 +1,43 @@
-
+import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/AdminSidebar.css";
-import { Link } from "react-router-dom";
 
 function AdminSidebar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/");
+  };
+
   return (
     <div className="admin-sidebar">
 
       <h2>CIVIX AI</h2>
 
-      <Link to="/admin">🏠 Dashboard</Link>
+      <NavLink to="/admin">
+        🏠 Dashboard
+      </NavLink>
 
-      <Link to="/admin/complaints">📋 Complaints</Link>
+      <NavLink to="/admin/complaints">
+        📋 Complaints
+      </NavLink>
 
-      <Link to="/admin/users">👥 Users</Link>
+      <NavLink to="/admin/users">
+        👥 Users
+      </NavLink>
 
-      <Link to="/admin/analytics">📊 Analytics</Link>
+      <NavLink to="/admin/analytics">
+        📊 Analytics
+      </NavLink>
 
-      <Link to="/">🚪 Logout</Link>
+      <button
+        onClick={handleLogout}
+        className="logout-btn"
+      >
+        🚪 Logout
+      </button>
 
     </div>
   );

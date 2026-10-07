@@ -11,5 +11,15 @@ export const registerUser = (data) => {
 };
 
 export const adminLogin = (data) => {
-  return axios.post("/api/auth/admin-login", data);
+  return axios.post(`${API}/admin-login`, data);
+};
+
+export const getAllUsers = () => {
+  const token = localStorage.getItem("token");
+
+  return axios.get(`${API}/users`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };

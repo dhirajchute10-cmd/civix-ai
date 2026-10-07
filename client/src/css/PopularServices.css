@@ -1,0 +1,49 @@
+.popular-services{
+    padding:80px 8%;
+    background:#ffffff;
+    text-align:center;
+}
+
+.popular-services h2{
+    font-size:38px;
+    color:#1e3a8a;
+    margin-bottom:10px;
+}
+
+.popular-services p{
+    color:#666;
+    margin-bottom:40px;
+}
+
+.services-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+}
+
+.service-card{
+    background:white;
+    border-radius:15px;
+    padding:35px 20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    cursor:pointer;
+    transition:.3s;
+}
+
+.service-card:hover{
+    transform:translateY(-8px);
+}
+
+.service-icon{
+    font-size:50px;
+    margin-bottom:15px;
+}
+
+.service-card h3{
+    color:#1e3a8a;
+    margin-bottom:10px;
+}
+
+.service-card p{
+    color:#666;
+}

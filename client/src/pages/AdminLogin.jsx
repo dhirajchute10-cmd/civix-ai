@@ -1,45 +1,57 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { loginUser } from "../services/authService";
+import { useLocation, useNavigate } from "react-router-dom";
+import { adminLogin } from "../services/authService";
 import "../css/Login.css";
 
 function AdminLogin() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await loginUser({
+      setLoading(true);
+
+      const response = await adminLogin({
         email,
         password,
       });
 
-      // Check admin role
-      if (response.data.user.role !== "admin") {
+      const user = response.data?.user;
+      const token = response.data?.token;
+
+      if (!user || user.role !== "admin") {
         alert("Access Denied! Admin account required.");
         return;
       }
 
-      localStorage.setItem("token", response.data.token);
+      if (!token) {
+        alert("Login failed. Authentication token not received.");
+        return;
+      }
 
-      localStorage.setItem(
-        "user",
-        JSON.stringify(response.data.user)
-      );
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
 
       alert("Welcome Admin!");
 
-      navigate("/admin");
+      const redirectPath = location.state?.from || "/admin";
 
+      navigate(redirectPath, { replace: true });
     } catch (error) {
+      console.error("Admin Login Error:", error);
+
       alert(
         error.response?.data?.message ||
-        "Login Failed"
+          "Admin Login Failed"
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -47,11 +59,13 @@ function AdminLogin() {
     <div className="login-page">
       <div className="login-card">
 
-        <h1>🛡️ CIVIX AI</h1>
+        <h1>CIVIX AI</h1>
 
         <h2>Admin Portal</h2>
 
-        <p>Only authorized administrators can log in.</p>
+        <p>
+          Only authorized administrators can log in.
+        </p>
 
         <form onSubmit={handleSubmit}>
 
@@ -63,6 +77,7 @@ function AdminLogin() {
               placeholder="Enter admin email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
@@ -71,17 +86,19 @@ function AdminLogin() {
 
             <input
               type="password"
-              placeholder="Enter password"
+              placeholder="Enter admin password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
 
           <button
             type="submit"
             className="login-btn"
+            disabled={loading}
           >
-            Admin Login
+            {loading ? "Logging in..." : "Admin Login"}
           </button>
 
         </form>
