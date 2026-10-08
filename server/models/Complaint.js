@@ -11,6 +11,7 @@ const complaintSchema = new mongoose.Schema(
     description: {
       type: String,
       required: true,
+      trim: true,
     },
 
     category: {
@@ -27,9 +28,30 @@ const complaintSchema = new mongoose.Schema(
       ],
     },
 
+    priority: {
+      type: String,
+      enum: ["High", "Medium", "Low"],
+      default: "Medium",
+    },
+
+    department: {
+      type: String,
+      enum: [
+        "Public Works Department",
+        "Water Supply Department",
+        "Sanitation Department",
+        "Electricity Department",
+        "Drainage Department",
+        "Street Light Department",
+        "Municipal Office",
+      ],
+      default: "Municipal Office",
+    },
+
     location: {
       type: String,
       required: true,
+      trim: true,
     },
 
     image: {
@@ -39,11 +61,7 @@ const complaintSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: [
-        "Pending",
-        "In Progress",
-        "Resolved",
-      ],
+      enum: ["Pending", "In Progress", "Resolved"],
       default: "Pending",
     },
 
@@ -51,10 +69,12 @@ const complaintSchema = new mongoose.Schema(
       {
         status: {
           type: String,
+          enum: ["Pending", "In Progress", "Resolved"],
         },
 
         message: {
           type: String,
+          trim: true,
         },
 
         updatedAt: {

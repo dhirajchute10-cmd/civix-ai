@@ -4,7 +4,8 @@ import axios from "axios";
 // CIVIX IMAGE API
 // =========================================================
 
-const API = "http://localhost:5000/api/image";
+const API_BASE = (import.meta.env.VITE_API_URL || "http://localhost:5000").replace(/\/$/, "");
+const API = `${API_BASE}/api/image`;
 
 // =========================================================
 // ANALYZE IMAGE
