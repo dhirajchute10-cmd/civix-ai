@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { API_BASE } from "../services/apiBase";
 
 import {
   getComplaintById,
@@ -115,10 +116,7 @@ function AdminComplaintDetails() {
       return image;
     }
 
-    const baseUrl =
-      import.meta.env.VITE_API_URL || "http://localhost:5000";
-
-    return `${baseUrl}${image.startsWith("/") ? "" : "/"}${image}`;
+    return `${API_BASE}${image.startsWith("/") ? "" : "/"}${image}`;
   };
 
   if (loading) {

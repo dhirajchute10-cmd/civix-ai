@@ -1,6 +1,6 @@
 import axios from "axios";
+import { API_BASE } from "./apiBase";
 
-const API_BASE = (import.meta.env.VITE_API_URL || "http://localhost:5000").replace(/\/$/, "");
 const API = `${API_BASE}/api/auth`;
 
 export const loginUser = (data) => {

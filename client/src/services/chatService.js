@@ -1,8 +1,8 @@
 import axios from "axios";
 
 import { governmentServices } from "../data/governmentServices";
+import { API_BASE } from "./apiBase";
 
-const API_BASE = (import.meta.env.VITE_API_URL || "http://localhost:5000").replace(/\/$/, "");
 const API = `${API_BASE}/api/ai`;
 
 export const getChatReply = (key) => {
